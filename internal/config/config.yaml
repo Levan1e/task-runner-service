@@ -1,0 +1,15 @@
+server:
+  host: "0.0.0.0"
+  port: "8080"
+  read_timeout: 10s
+  write_timeout: 10s
+
+redis:
+  url: "localhost:6379"
+  password: ""
+  db: 0
+  
+broker:
+  broker: redis://localhost:6379
+  default_queue: "machinery_tasks"
+  result_backend: redis://localhost:6379
