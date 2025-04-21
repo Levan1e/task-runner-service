@@ -41,6 +41,13 @@ func (h *Handler) PostInQueue(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if req.Name == "" {
+		logger.Errorf("Ошибка: отсутствует имя задачи")
+		render.Status(r, http.StatusBadRequest)
+		render.JSON(w, r, map[string]string{"error": "missing task name"})
+		return
+	}
+
 	taskID, err := h.taskService.SendTask(r.Context(), req.Name, req.Args, req.Queue)
 	if err != nil {
 		logger.Errorf("Ошибка отправки задачи PostInQueue: %v", err)
